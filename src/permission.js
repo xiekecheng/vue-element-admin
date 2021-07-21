@@ -37,9 +37,11 @@ router.beforeEach(async(to, from, next) => {
           const { roles } = await store.dispatch('user/getInfo')
 
           // generate accessible routes map based on roles
+          // 动态路由渲染   当前登录的用户可以看到的页面
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
 
           // dynamically add accessible routes
+          // 动态添加路由
           router.addRoutes(accessRoutes)
 
           // hack method to ensure that addRoutes is complete
