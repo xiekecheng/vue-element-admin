@@ -37,7 +37,7 @@
       tooltip-effect="dark"
       style="width: 100%"
       highlight-current-row
-      @current-change="handleCurrentChange1"
+      @current-change="handleCurrentHighlight"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" />
@@ -77,7 +77,7 @@
         layout="total, sizes, prev, pager, next, jumper"
         :total="400"
         @size-change="handleSizeChange"
-        @current-change="handleCurrentChange2"
+        @current-change="handlePageChange"
       />
     </div>
     <!-- E 分类功能 -->
@@ -141,13 +141,13 @@ export default {
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
-    handleCurrentChange2(val) {
+    handlePageChange(val) {
       console.log(`当前页: ${val}`)
     },
     // E 分页操作
 
     //  选中行高亮
-    handleCurrentChange1(val) {
+    handleCurrentHighlight(val) {
       this.currentRow = val
     },
     onSubmit() {
