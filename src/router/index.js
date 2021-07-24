@@ -11,6 +11,7 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+import goodsRouter from './modules/goods'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -133,51 +134,55 @@ export const constantRoutes = [
 // 需要权限的页面  权限配置
 export const asyncRoutes = [
   // S 商品模块路由
-  {
-    path: '/goods',
-    component: Layout,
-    // component: () => import('@/views/goods/index'),
-    redirect: '/goods/index',
-    // alwaysShow: true,
-    name: 'Goods',
-    meta: {
-      title: 'goods',
-      icon: 'shopping',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'list',
-        component: () => import('@/views/goods/goodslist'),
-        name: '/goodsList',
-        meta: {
-          title: 'GoodsList',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      },
-      {
-        path: 'edit',
-        component: () => import('@/views/goods/goodsedit'),
-        name: 'GoodsEdit',
-        meta: {
-          title: 'GoodsEdit',
-          // if do not set roles, means: this page does not require permission
-          roles: ['admin']
-        }
-      }
-      // {
-      //   path: 'role',
-      //   component: () => import('@/views/permission/role'),
-      //   name: 'RolePermission',
-      //   meta: {
-      //     title: 'Role Permission',
-      //     roles: ['admin']
-      //   }
-      // }
-    ]
-  },
+  // {
+  //   path: '/goods',
+  //   component: Layout,
+  //   // component: () => import('@/views/goods/index'),
+  //   redirect: '/goods/index',
+  //   // alwaysShow: true,
+  //   name: 'Goods',
+  //   meta: {
+  //     title: 'goods',
+  //     icon: 'shopping',
+  //     roles: ['admin', 'editor'] // you can set roles in root nav
+  //   },
+  //   children: [
+  //     {
+  //       path: 'list',
+  //       component: () => import('@/views/goods/goodslist'),
+  //       name: '/goodsList',
+  //       meta: {
+  //         title: 'GoodsList',
+  //         roles: ['admin'] // or you can only set roles in sub nav
+  //       }
+  //     },
+  //     {
+  //       path: 'edit',
+  //       component: () => import('@/views/goods/goodsedit'),
+  //       name: 'GoodsEdit',
+  //       meta: {
+  //         title: 'GoodsEdit',
+  //         // if do not set roles, means: this page does not require permission
+  //         roles: ['admin']
+  //       }
+  //     }
+  //     // {
+  //     //   path: 'role',
+  //     //   component: () => import('@/views/permission/role'),
+  //     //   name: 'RolePermission',
+  //     //   meta: {
+  //     //     title: 'Role Permission',
+  //     //     roles: ['admin']
+  //     //   }
+  //     // }
+  //   ]
+  // },
   // E 商品模块路由
-
+  goodsRouter,
+  componentsRouter,
+  chartsRouter,
+  nestedRouter,
+  tableRouter,
   {
     path: '/permission',
     component: Layout,
@@ -234,10 +239,11 @@ export const asyncRoutes = [
   },
 
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
+  // goodsRouter,
+  // componentsRouter,
+  // chartsRouter,
+  // nestedRouter,
+  // tableRouter,
 
   {
     path: '/example',

@@ -153,15 +153,22 @@ export default {
       })
     },
     handleLogin() {
+      // 登录
+      console.log('触发登录按钮');
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
+          console.log('this.loginForm', this.loginForm);
+          // 触发user中的login这个actions方法
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
+              console.log(111111111, 'this.redirect', this.redirect);
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
+              console.log(222);
             })
             .catch(() => {
+              console.log('index.vue -> fail');
               this.loading = false
             })
         } else {

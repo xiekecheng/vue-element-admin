@@ -10,11 +10,12 @@ module.exports = {
     es6: true,
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
+  // extends: [ 'eslint:recommended'],
 
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
-    "vue/max-attributes-per-line": [2, {
+    "vue/max-attributes-per-line": [0, {
       "singleline": 10,
       "multiline": {
         "max": 1,
@@ -23,7 +24,7 @@ module.exports = {
     }],
     "vue/singleline-html-element-content-newline": "off",
     "vue/multiline-html-element-content-newline":"off",
-    "vue/name-property-casing": ["error", "PascalCase"],
+    // "vue/name-property-casing": ["error", "PascalCase"],
     "vue/no-v-html": "off",
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
@@ -37,7 +38,7 @@ module.exports = {
     'camelcase': [0, {
       'properties': 'always'
     }],
-    'comma-dangle': [2, 'never'],
+    'comma-dangle': [0, 'never'],
     'comma-spacing': [2, {
       'before': false,
       'after': true
@@ -53,7 +54,7 @@ module.exports = {
       'after': true
     }],
     'handle-callback-err': [2, '^(err|error)$'],
-    'indent': [2, 2, {
+    'indent': [0, 2, {
       'SwitchCase': 1
     }],
     'jsx-quotes': [2, 'prefer-single'],
@@ -162,11 +163,11 @@ module.exports = {
       }
     }],
     'padded-blocks': [2, 'never'],
-    'quotes': [2, 'single', {
+    'quotes': [0, 'single', {
       'avoidEscape': true,
       'allowTemplateLiterals': true
     }],
-    'semi': [2, 'never'],
+    'semi': [0, 'never'],
     'semi-spacing': [2, {
       'before': false,
       'after': true

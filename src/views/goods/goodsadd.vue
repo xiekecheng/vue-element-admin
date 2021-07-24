@@ -10,24 +10,30 @@
         </el-form-item>
         <el-form-item label="商品描述">
           <el-input
-            v-model="textarea"
+            v-model="form.desc"
             type="textarea"
             :rows="2"
             placeholder="请输入内容"
           />
         </el-form-item>
         <el-form-item label="商品品类">
-          <el-select v-model="value" placeholder="请选择">
+          <el-select v-model="form.cate" placeholder="请选择">
             <el-option
-              v-for="item in options"
-              :key="item.value"
+              v-for="item in cateList"
+              :key="item.cate"
               :label="item.label"
-              :value="item.value"
+              :value="item.cate"
             />
           </el-select>
         </el-form-item>
         <el-form-item label="商品价格">
-          <el-switch v-model="form.delivery" />
+          <!-- <el-switch v-model="form.delivery" /> -->
+          <el-input-number
+            v-model="form.price"
+            controls-position="right"
+            :min="1"
+            @change="handleChange"
+          />
         </el-form-item>
         <el-form-item label="是否热销">
           <el-tooltip
@@ -104,19 +110,30 @@ export default {
             switchValue: false,
             form: {
                 name: "",
-                region: "",
-                date1: "",
-                date2: "",
-                delivery: false,
-                type: [],
-                resource: "",
-                desc: ""
-            }
+                desc: "",
+                cate: "",
+                price: "",
+                hot: false,
+                img: ""
+            },
+            cateList: []
         };
+    },
+    mounted() {
+        this.initCateList();
     },
     methods: {
         onSubmit() {
             console.log("submit!", this.form);
+        },
+        initCateList() {
+            this.$goodsApi.getCateList().then(res => {
+                this.cateList = res.data;
+                console.log("分类数据res", res);
+            });
+        },
+        handleChange(value) {
+            console.log(value);
         }
     }
 };

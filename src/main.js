@@ -20,6 +20,9 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+// api
+import goodsApi from '@/api/goods';
+Vue.prototype.$goodsApi = goodsApi;
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
