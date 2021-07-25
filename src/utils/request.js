@@ -44,10 +44,8 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    console.log(res);
     // if the custom code is not 20000, it is judged as an error.
     if (res.statusCode !== 1) {
-      console.log('res', res);
       Message({
         message: res.message || 'Error',
         type: 'error',
@@ -69,7 +67,7 @@ service.interceptors.response.use(
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
-      console.log('请求成功');
+      // console.log('请求成功')
       return res
     }
   },

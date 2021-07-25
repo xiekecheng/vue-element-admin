@@ -14,7 +14,11 @@
         </el-option>
       </el-select> -->
 
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form
+        :inline="true"
+        :model="formInline"
+        class="demo-form-inline"
+      >
         <el-form-item label="名称">
           <el-input
             v-model="formInline.name"
@@ -24,9 +28,12 @@
           />
         </el-form-item>
         <el-form-item label="品类">
-          <el-select v-model="formInline.cate" placeholder="请选择">
-            <!-- <el-option label="区域一" value="shanghai" />
-            <el-option label="区域二" value="beijing" /> -->
+          <el-select
+            v-model="formInline.cate"
+            placeholder="请选择"
+            @change="onSelectChange"
+          >
+            <el-option label="全部" value="" />
             <el-option
               v-for="item in cateList"
               :key="item._id"
@@ -61,13 +68,22 @@
             :src="scope.row.img"
             :fit="fit"
           />
+          <!-- {{ scope.row.name }} -->
         </template>
       </el-table-column>
       <el-table-column prop="price" label="价格" width="120" />
-      <el-table-column prop="desc" label="描述" show-overflow-tooltip />
+      <el-table-column prop="name" label="名称" width="120" />
+      <el-table-column
+        prop="desc"
+        label="商品描述"
+        show-overflow-tooltip
+      />
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
@@ -80,7 +96,10 @@
       <!-- <el-button @click="toggleSelection([tableData[1], tableData[2]])"
         >切换第二、第三行的选中状态</el-button
       > -->
-      <el-button type="danger" @click="toggleSelection()">删除选中行</el-button>
+      <el-button
+        type="danger"
+        @click="deleteSelection()"
+      >删除选中行</el-button>
     </div>
 
     <!-- S 分页功能 -->
@@ -111,29 +130,30 @@ export default {
       size: 10,
       formInline: {
         name: "",
-        cate: "",
+        cate: ""
       },
       input: "",
       value: "",
       tableData: [],
       multipleSelection: [],
       cateList: [],
-    };
+      deleteIdsArr: []
+    }
   },
   watch: {
     size() {
       // console.log('每页数据条:',this.size);
-      this.init();
+      this.init()
     },
     page() {
       // console.log('页数:',this.page);
-      this.init();
+      this.init()
       // this.initCateList();
-    },
+    }
   },
   mounted() {
-    this.init();
-    this.initCateList();
+    this.init()
+    this.initCateList()
   },
 
   methods: {
@@ -144,44 +164,52 @@ export default {
           page: this.page,
           size: this.size,
           cate: this.formInline.cate,
-          desc: this.formInline.name,
+          desc: this.formInline.name
         })
         .then((res) => {
           // console.log("res", res);
-          this.total = res.data.total;
-          this.tableData = res.data.list;
-        });
+          // console.log('res', res)
+          this.total = res.data.total
+          this.tableData = res.data.list
+        })
     },
     initCateList() {
       this.$goodsApi.getCateList().then((res) => {
-        this.cateList = res.data;
-        console.log("分类数据res", res);
-      });
+        this.cateList = res.data
+        // console.log("分类数据res", res)
+      })
     },
     // S 分页操作
     handleSizeChange(val) {
-      this.size = val;
+      this.size = val
     },
     handlePageChange(val) {
       // console.log(`当前页: ${val}`);
       // console.log(val);
-      this.page = val;
+      this.page = val
       // this.init();
     },
     // E 分页操作
 
     //  选中行高亮
     handleCurrentHighlight(val) {
-      this.currentRow = val;
+      this.currentRow = val
     },
+    // 查询
     onSubmit() {
-      console.log("submit!", this.formInline);
-      this.init();
+      console.log("submit!", this.formInline)
+      // console.log(thi)
+      this.init()
       // console.log('');
     },
+    onSelectChange() {
+            this.init()
+    },
     // 编辑
-    handleEdit() {
-      console.log("编辑数据");
+    handleEdit(index, data) {
+      // console.log("编辑数据", data)
+      this.$router.push({ name: 'GoodsEdit', params: data })
+      // console.log("跳转")
     },
     // 删除
     async handleDelete(index, data) {
@@ -189,50 +217,55 @@ export default {
       // const info = await this.$goodsApi.deleteGoodsById({_id:data._id})
       // console.log(info);
 
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("是否删除该商品?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           this.$goodsApi
             .deleteGoodsById({ _id: data._id })
             .then((res) => {
-              console.log(res);
-              this.init();
+              console.log(res)
+              this.init()
               this.$message({
                 type: "success",
-                message: "删除成功!",
-              });
+                message: "删除成功!"
+              })
             })
             .catch(() => {
-              // this.$message({
-              //   type: "error",
-              //   message: "删除失败",
-              // });
-            });
+              this.$message({
+                type: "error",
+                message: "删除失败"
+              })
+            })
         })
         .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
+          // this.$message({
+          //   type: "info",
+          //   message: "已取消删除",
+          // });
+        })
     },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
+    deleteSelection() {
+      this.deleteIdsArr = []
+      let arrStr = ''
+      this.multipleSelection.forEach(item => {
+        arrStr += item._id + ';'
+      })
+      console.log(arrStr)
+      // 调删除接口
+      this.$goodsApi.deleteGoodsByIds({ ids: arrStr }).then(res => {
+        console.log(res)
+      })
+      this.init()
     },
     handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-  },
-};
+      this.multipleSelection = val
+      // console.log(val)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -15,7 +15,7 @@ module.exports = {
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
-    "vue/max-attributes-per-line": [0, {
+    "vue/max-attributes-per-line": [2, {
       "singleline": 10,
       "multiline": {
         "max": 1,
@@ -35,10 +35,10 @@ module.exports = {
     'brace-style': [2, '1tbs', {
       'allowSingleLine': true
     }],
-    'camelcase': [0, {
+    'camelcase': [2, {
       'properties': 'always'
     }],
-    'comma-dangle': [0, 'never'],
+    'comma-dangle': [2, 'never'],
     'comma-spacing': [2, {
       'before': false,
       'after': true
@@ -77,7 +77,7 @@ module.exports = {
     'no-class-assign': 2,
     'no-cond-assign': 2,
     'no-const-assign': 2,
-    'no-control-regex': 0,
+    'no-control-regex': 2,
     'no-delete-var': 2,
     'no-dupe-args': 2,
     'no-dupe-class-members': 2,
@@ -150,7 +150,7 @@ module.exports = {
     'no-useless-call': 2,
     'no-useless-computed-key': 2,
     'no-useless-constructor': 2,
-    'no-useless-escape': 0,
+    'no-useless-escape': 2,
     'no-whitespace-before-property': 2,
     'no-with': 2,
     'one-var': [2, {
@@ -167,7 +167,7 @@ module.exports = {
       'avoidEscape': true,
       'allowTemplateLiterals': true
     }],
-    'semi': [0, 'never'],
+    'semi': [2, 'never'],
     'semi-spacing': [2, {
       'before': false,
       'after': true

@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="app-container goods-edit">
-    <h1>商品新增</h1>
+    <h1>商品编辑</h1>
     <!-- S  表单 -->
     <div class="form">
       <el-form ref="form" :model="form" label-width="80px">
@@ -10,32 +10,37 @@
         </el-form-item>
         <el-form-item label="商品描述">
           <el-input
-            v-model="textarea"
+            v-model="form.desc"
             type="textarea"
             :rows="2"
             placeholder="请输入内容"
           />
         </el-form-item>
         <el-form-item label="商品品类">
-          <el-select v-model="value" placeholder="请选择">
+          <el-select v-model="form.cate" placeholder="请选择">
             <el-option
-              v-for="item in options"
-              :key="item.value"
+              v-for="item in cateList"
+              :key="item._id"
               :label="item.label"
-              :value="item.value"
+              :value="item.cate"
             />
           </el-select>
         </el-form-item>
         <el-form-item label="商品价格">
-          <el-switch v-model="form.delivery" />
+          <!-- <el-switch v-model="form.price" /> -->
+          <el-input-number
+            v-model="form.price"
+            controls-position="right"
+            :min="1"
+          />
         </el-form-item>
         <el-form-item label="是否热销">
           <el-tooltip
-            :content="'Switch value: ' + switchValue"
+            :content="'Switch value: ' + form.hot"
             placement="top"
           >
             <el-switch
-              v-model="switchValue"
+              v-model="form.hot"
               active-color="#13ce66"
               inactive-color="#ff4949"
               active-value="true"
@@ -44,6 +49,8 @@
           </el-tooltip>
         </el-form-item>
         <el-form-item label="商品图片">
+          <div class="showImg" />
+          <div class="uploadImg" />
           <el-upload
             class="upload-demo"
             drag
@@ -63,7 +70,10 @@
           <el-input v-model="form.desc" type="textarea" />
         </el-form-item> -->
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button
+            type="primary"
+            @click="onSubmit"
+          >编辑完成</el-button>
           <!-- <el-button>取消</el-button> -->
         </el-form-item>
       </el-form>
@@ -77,49 +87,45 @@ export default {
     name: "GoodsList",
     data() {
         return {
-            textarea: "",
-            options: [
-                {
-                    value: "选项1",
-                    label: "黄金糕"
-                },
-                {
-                    value: "选项2",
-                    label: "双皮奶"
-                },
-                {
-                    value: "选项3",
-                    label: "蚵仔煎"
-                },
-                {
-                    value: "选项4",
-                    label: "龙须面"
-                },
-                {
-                    value: "选项5",
-                    label: "北京烤鸭"
-                }
-            ],
-            value: "",
-            switchValue: false,
-            form: {
-                name: "",
-                region: "",
-                date1: "",
-                date2: "",
-                delivery: false,
-                type: [],
-                resource: "",
-                desc: ""
-            }
-        };
+            cateList: [],
+            // form: {
+            //     name: "",
+            //     desc: "",
+            //     cate: "",
+            //     price: "",
+            //     hot: false,
+            //     img: ""
+            //     _id:
+            // },
+            form: {},
+            id: ""
+        }
+    },
+    mounted() {
+        console.log("路由传递参数", this.$route.params)
+        const { name, desc, cate, price, hot, img, _id } = this.$route.params
+        this.form = { name, desc, cate, price, hot, img, _id }
+        // this.id = _id
+
+        this.initCateList()
     },
     methods: {
         onSubmit() {
-            console.log("submit!", this.form);
+            console.log("submit!", this.form, this.id)
+            this.$goodsApi
+                .updateGoods(this.form)
+                .then(res => {
+                    console.log(res)
+                })
+        },
+        initCateList() {
+            this.$goodsApi.getCateList().then(res => {
+                this.cateList = res.data
+                console.log("分类数据res", res)
+            })
         }
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>

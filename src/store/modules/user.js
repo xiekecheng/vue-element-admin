@@ -22,7 +22,7 @@ const state = {
 
 const mutations = {
     SET_TOKEN: (state, token) => {
-        console.log('state,token', state, token);
+        // console.log('state,token', state, token)
         state.token = token
     },
     SET_INTRODUCTION: (state, introduction) => {
@@ -48,7 +48,7 @@ const actions = {
             username,
             password
         } = userInfo
-        console.log('userInfo', userInfo);
+        // console.log('userInfo', userInfo)
         return new Promise((resolve, reject) => {
             login({
                 username: username.trim(),
@@ -57,12 +57,12 @@ const actions = {
                 const {
                     data
                 } = response
-                console.log('user.js --> data  执行 commit settoken ,data,response', data, response);
+                // console.log('user.js --> data  执行 commit settoken ,data,response', data, response)
                 // Cookies.set('token', data.token)
                 commit('SET_TOKEN', data.token)
-                console.log('user.js --> data  执行 commit settoken END');
+                // console.log('user.js --> data  执行 commit settoken END')
                 setToken(data.token)
-                console.log('user.js --> resolve');
+                // console.log('user.js --> resolve')
                 resolve()
             }).catch(error => {
                 reject(error)
@@ -76,7 +76,7 @@ const actions = {
         state
     }) {
         return new Promise((resolve, reject) => {
-            console.log('getInfo');
+            // console.log('getInfo')
             getInfo(state.token).then(response => {
                 const {
                     data

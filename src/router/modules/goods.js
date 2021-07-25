@@ -17,7 +17,7 @@ const goodsRouter = {
     children: [{
             path: 'list',
             component: () => import('@/views/goods/goodslist'),
-            name: '/goodsList',
+            name: 'goodsList',
             meta: {
                 title: 'GoodsList',
                 roles: ['admin'] // or you can only set roles in sub nav

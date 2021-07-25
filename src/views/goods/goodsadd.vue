@@ -37,11 +37,11 @@
         </el-form-item>
         <el-form-item label="是否热销">
           <el-tooltip
-            :content="'Switch value: ' + switchValue"
+            :content="'Switch value: ' + form.hot"
             placement="top"
           >
             <el-switch
-              v-model="switchValue"
+              v-model="form.hot"
               active-color="#13ce66"
               inactive-color="#ff4949"
               active-value="true"
@@ -53,7 +53,7 @@
           <el-upload
             class="upload-demo"
             drag
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action="http://localhost:8002/api/v1/vueadmin/uploadImage"
             multiple
           >
             <i class="el-icon-upload" />
@@ -65,11 +65,8 @@
             </div>
           </el-upload>
         </el-form-item>
-        <!-- <el-form-item label="活动形式">
-          <el-input v-model="form.desc" type="textarea" />
-        </el-form-item> -->
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="onSubmit">添加商品</el-button>
           <!-- <el-button>取消</el-button> -->
         </el-form-item>
       </el-form>
@@ -83,31 +80,9 @@ export default {
     name: "GoodsList",
     data() {
         return {
-            textarea: "",
-            options: [
-                {
-                    value: "选项1",
-                    label: "黄金糕"
-                },
-                {
-                    value: "选项2",
-                    label: "双皮奶"
-                },
-                {
-                    value: "选项3",
-                    label: "蚵仔煎"
-                },
-                {
-                    value: "选项4",
-                    label: "龙须面"
-                },
-                {
-                    value: "选项5",
-                    label: "北京烤鸭"
-                }
-            ],
-            value: "",
-            switchValue: false,
+            // textarea: "",
+            // value: "",
+            // switchValue: false,
             form: {
                 name: "",
                 desc: "",
@@ -117,26 +92,32 @@ export default {
                 img: ""
             },
             cateList: []
-        };
+        }
     },
     mounted() {
-        this.initCateList();
+        this.initCateList()
     },
     methods: {
+      imgUpload() {
+        // const formData = new FormData()
+      },
         onSubmit() {
-            console.log("submit!", this.form);
+            console.log("submit!", this.form)
+            this.$goodsApi.addGoods(this.form).then(res => {
+              console.log('res', res)
+            })
         },
         initCateList() {
             this.$goodsApi.getCateList().then(res => {
-                this.cateList = res.data;
-                console.log("分类数据res", res);
-            });
+                this.cateList = res.data
+                console.log("分类数据res", res)
+            })
         },
         handleChange(value) {
-            console.log(value);
+            console.log(value)
         }
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>

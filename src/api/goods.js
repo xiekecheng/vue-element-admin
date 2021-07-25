@@ -15,6 +15,13 @@ function deleteGoodsById(params) {
         params
     })
 }
+function deleteGoodsByIds(params) {
+    return request({
+        url: '/goods/ids',
+        method: 'get',
+        params
+    })
+}
 
 function getCateList(params) {
     return request({
@@ -23,23 +30,25 @@ function getCateList(params) {
         params
     })
 }
-
-// export function getInfo(token) {
-//   return request({
-//     url: '/user/info',
-//     method: 'get',
-//     params: { token }
-//   })
-// }
-
-// export function logout() {
-//   return request({
-//     url: '/vue-element-admin/user/logout',
-//     method: 'post'
-//   })
-// }
+const addGoods = (data) => {
+    return request({
+        url: '/addGoods',
+        method: 'post',
+        data
+    })
+}
+const updateGoods = (data) => {
+    return request({
+        url: '/updateGoods',
+        method: 'post',
+        data
+    })
+}
 export default {
     getGoodsList,
     deleteGoodsById,
-    getCateList
+    getCateList,
+    addGoods,
+    deleteGoodsByIds,
+    updateGoods
 }
