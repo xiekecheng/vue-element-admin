@@ -167,8 +167,6 @@ export default {
           desc: this.formInline.name
         })
         .then((res) => {
-          // console.log("res", res);
-          // console.log('res', res)
           this.total = res.data.total
           this.tableData = res.data.list
         })
